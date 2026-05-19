@@ -34,7 +34,7 @@ app.secret_key = os.environ["FLASK_SECRET_KEY"]
 stripe.api_key = os.environ["STRIPE_SECRET_KEY"]
 STRIPE_WEBHOOK_SECRET = os.environ.get("STRIPE_WEBHOOK_SECRET", "")
 BASE_URL = os.environ.get("BASE_URL", "http://localhost:5000")
-DB_PATH  = os.environ.get("DB_PATH", "blockshop.db")
+DB_PATH = os.environ.get("DB_PATH", "/tmp/blockshop.db")
 
 BLOCK_PRICE_CENTS = 100   # $1.00
 
