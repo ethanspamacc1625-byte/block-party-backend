@@ -34,7 +34,7 @@ app.secret_key = os.environ["FLASK_SECRET_KEY"]
 stripe.api_key = os.environ["STRIPE_SECRET_KEY"]
 STRIPE_WEBHOOK_SECRET = os.environ.get("STRIPE_WEBHOOK_SECRET", "")
 BASE_URL = os.environ.get("BASE_URL", "http://localhost:5000")
-DB_PATH = os.environ.get("DB_PATH", "/tmp/blockshop.db")
+DB_PATH  = os.environ.get("DB_PATH", "/tmp/blockshop.db")
 
 BLOCK_PRICE_CENTS = 100   # $1.00
 
@@ -126,16 +126,7 @@ BlockShop
 
 @app.route("/")
 def index():
-    """Minimal landing page — replace with your real HTML."""
-    return render_template_string("""
-    <h1>BlockShop</h1>
-    <p>Buy one block placement on our Minecraft map for $1.</p>
-    <form action="/checkout" method="post">
-        <label>Minecraft username: <input name="mc_username" required></label><br>
-        <label>Email (for your token): <input name="email" type="email" required></label><br>
-        <button type="submit">Buy 1 Block — $1.00</button>
-    </form>
-    """)
+    return app.send_static_file("index.html")
 
 
 @app.route("/checkout", methods=["POST"])
