@@ -218,8 +218,9 @@ def webhook():
 def _fulfill(session):
     """Generate + record a token, then email it. Idempotent (skips if already fulfilled)."""
     session_id  = session.id
-    mc_username = session.get("metadata", {}).get("mc_username") or ""
-    email       = session.get("customer_email") or session.get("metadata", {}).get("email") or ""
+    metadata    = session.metadata or {}
+    mc_username = metadata.get("mc_username") if hasattr(metadata, "get") else getattr(metadata, "mc_username", "") or ""
+    email       = getattr(session, "customer_email", None) or (metadata.get("email") if hasattr(metadata, "get") else getattr(metadata, "email", "")) or ""
 
     with get_db() as conn:
         row = conn.execute(
